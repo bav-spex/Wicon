@@ -1,0 +1,8 @@
+.banner__image{
+    width: 100%;
+}
+.banner__details__box{
+    display: flex;
+    align-items: center;
+    padding: 0px;
+}

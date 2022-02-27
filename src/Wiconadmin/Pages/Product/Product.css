@@ -1,0 +1,14 @@
+.product__crud__button {
+  padding: 10px 0px;
+  margin-top: 10px;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+}
+.product__delete__button {
+  background-color: var(--secondary-color);
+  padding: 5px 10px;
+  margin: 0px 15px;
+  color: white;
+  border-radius: 5px;
+}

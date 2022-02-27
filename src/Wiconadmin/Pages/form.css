@@ -1,0 +1,106 @@
+
+.page__title{
+    font-size: 24px;
+    color: var(--primary-color);
+}
+.create__form__field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.form__field__label {
+  width: 20%;
+  font-size: 20px;
+  margin: 0px;
+}
+.form__input__field {
+  width: 100%;
+  padding: 10px 20px;
+  border: 0px solid;
+  background-color: #f6f6f6;
+  border: 0px solid;
+}
+.form__select__field {
+  padding: 10px 20px;
+  border: 0px solid;
+  background-color: #f6f6f6;
+  border: 0px solid;
+}
+.form__file__field{
+    width: 100%;
+  padding: 10px 0px;
+}
+.manu__box{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.update__banner__image{
+  width: 50%;
+  margin-bottom: 20px;
+}
+
+th{
+  background-color: var(--primary-color) ;
+  color: white;
+  padding: 10px 20px;
+  font-weight: 400;
+  width: fit-content;
+}
+td{
+ border: 1px solid #eee;
+  padding: 5px 10px;
+  font-weight: 400;
+  font-size: 14px;
+  
+}
+
+td.authorizedIP__button {
+  opacity: 0;
+  pointer-events: none;
+}
+th.sr {
+  width: 2%;
+}
+th.customerSoftware__customerName {
+  width: 13%;
+}
+th.customerSoftware__softwareName {
+  width: 13%;
+}
+th.customerSoftware__email__Alarm {
+  width: 7%;
+}
+th.customerSoftware__edit {
+  width: 4% !important;
+}
+th.customerSoftware__editpurchaseSMS {
+  width: 10% !important;
+  padding-left: 15px;
+}
+th.customerSoftware__authorizedIP {
+  width: 10% !important;
+  padding: 0px 10px 0px 0px;
+}
+.customerSoftware__purchase__button__td {
+  padding-right: 15px;
+}
+
+.create__button{
+  border-radius: 5px;
+  padding: 10px 40px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.crud__button {
+  padding: 0px 20px 20px;
+  margin-top: 10px;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+}

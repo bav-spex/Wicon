@@ -1,0 +1,16 @@
+Hostinger C Panel
+============
+Email :- hinal@wicon.in
+Password :- Hmc777##
+
+FTP Account
+===========
+host :- wicon.in
+username :- u404295368.bhavikbavishi
+password :- Hmc777##
+port :- 21
+
+Admin Panel
+============
+Wicon username:- hinal@wicon.in
+Wicon password :- Hmc777##

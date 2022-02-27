@@ -1,0 +1,31 @@
+#page404 {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .wrapper {
+    /* width: 300px; */
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+  }
+  div > .wrapper > img {
+    /* margin: auto; */
+    width: 300px !important;
+    height: auto;
+    object-fit: contain;
+  }
+  div > div > h1 {
+    font-size: 100px;
+    color: #303030;
+    margin: auto;
+  }
+  div > div > h3 {
+    /* width: 300px; */
+    margin: auto;
+  }
+  
+  .page_note_found_iamge{
+      margin: auto;
+  }

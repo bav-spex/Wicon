@@ -1,0 +1,8 @@
+
+.about__us__crud__button {
+    padding: 10px 0px;
+    margin-top: 10px;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+  }

@@ -1,0 +1,28 @@
+.application__page__ard__block {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  @media only screen and (max-width: 1200px) {
+    .application__page__card__block {
+      justify-content: space-evenly;
+    }
+  }
+  @media only screen and (max-width: 992px) {
+    .application__page__card__block {
+      justify-content: space-evenly;
+    }
+  }
+  
+  @media only screen and (max-width: 767px) {
+    .application__page__card__block {
+      justify-content: space-between;
+    }
+  }
+  @media only screen and (max-width: 578px) {
+    .application__page__card__block {
+      justify-content: space-evenly;
+    }
+  }
+  
