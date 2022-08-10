@@ -5,8 +5,6 @@ import About from "./Pages/About"
 import Products from "./Pages/Products"
 import Services from "./Pages/Services"
 import Application from "./Pages/Application"
-import Career from "./Pages/Career"
-import Contact from "./Pages/Contact"
 import TopNavbar from './Components/TopNavbar'
 import Navbar from './Components/Navbar'
 import WiconAdmin from './Wiconadmin/WiconAdmin'
@@ -30,6 +28,8 @@ import ApplicationUpdate from './Wiconadmin/Pages/Application/ApplicationUpdate'
 import AboutusData from './Wiconadmin/Pages/AboutUs/AboutusData'
 import AboutusCreate from './Wiconadmin/Pages/AboutUs/AboutusCreate'
 import AboutusUpdate from './Wiconadmin/Pages/AboutUs/AboutusUpdate'
+import Career from './Pages/Career'
+import Contact from './Pages/Contact'
 
 
 

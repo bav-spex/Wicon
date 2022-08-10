@@ -1,70 +1,85 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
-import "./Contact.css";
+import "./Career.css";
 import TopNavbar from "../Components/TopNavbar";
 import Navbar from "../Components/Navbar";
 import { ToastContainer, Slide, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import "./../Components/Footer.css";
 import mapIcon from "./../assets/icon/mapIcon.png";
 import mail_filled from "./../assets/icon/mail_filled.svg";
 import phone_filled from "./../assets/icon/phone_filled.svg";
-import calltoMap from "../Functions/calltoMap";
+import career_page_banner from "./../assets/Banner/career_page_banner.jpg";
 
-import MiniFooter from "./../Components/MiniFooter";
+import MiniFooter from "../Components/MiniFooter";
 
-function Contact() {
-  const mapRef = useRef();
+function Career() {
+  const { pathname } = useLocation();
 
-  useEffect(() => {
-    calltoMap();
-  }, []);
+  // const token = localStorage.getItem("token");
 
+  const [bannerData, setBannerData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
-  const [client, setclient] = useState({
+  const getCareer = async () => {
+    await axios
+      .post(
+        `${process.env.REACT_APP_PROJECT_API_URL}/bannerList`,
+        { banner_name: "career" },
+        {
+          headers: {
+            "api-key": "Wicon@123",
+          },
+        }
+      )
+      .then((res) => {
+        // console.log(res.data.data);
+        setBannerData(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+
+    window.scrollTo(0, 0);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getCareer(0);
+  }, []);
+  const [candidate, setCandidate] = useState({
     name: "",
     email: "",
     phone_number: "",
-    subject: "",
-    description: "",
+    experience: "",
+    self_description: "",
+    resume:""
   });
 
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setclient({ ...client, [name]: value });
+    setCandidate({ ...candidate, [name]: value });
   };
-  //   console.log(client);
-
+  //   console.log(candidate);
   const customId = "custom-id-yes";
-
-  const debounce = (func, delay) => {
-    let timer;
-    return (...args) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        func.apply(this, args);
-      }, delay);
-    };
-  };
-
   const handleSubmit = async (e) => {
     setSubmitting(true);
 
     e.preventDefault();
     if (
-      client.name &&
-      client.email &&
-      client.phone_number &&
-      client.subject &&
-      client.description
+      candidate.name &&
+      candidate.email &&
+      candidate.self_description &&
+      candidate.phone_number &&
+      candidate.experience &&
+      candidate.resume
     ) {
       const data = new FormData(e.target);
-
       await axios
-        .post(`${process.env.REACT_APP_PROJECT_API_URL}/contactUsPost`, data, {
+        .post(`${process.env.REACT_APP_PROJECT_API_URL}/careerPost`, data, {
           headers: {
             // 'application/json' is the modern content-type for JSON, but some
             // older servers may use 'text/json'.
@@ -74,22 +89,21 @@ function Contact() {
           },
         })
         .then((res) => {
-          // console.log(res.data);
-          // alert(res.data.messages[0]);
+          // console.log(res.data.messages[0]);
           setSubmitting(false);
-          toast.success("Submit Successfully", {
+          toast.success("Apply Successfully", {
             toastId: customId,
             transition: Slide,
             autoClose: 2000,
             closeButton: false,
           });
-          // history("./../../applicationData");
-          setclient({
+          setCandidate({
             name: "",
             email: "",
             phone_number: "",
-            subject: "",
-            description: "",
+            experience: "",
+            self_description: "",
+            resume:""
           });
         })
         .catch((error) => {
@@ -106,159 +120,126 @@ function Contact() {
     }
   };
 
-  const handlefix = (e) => debounce(handleSubmit(e), 10000);
-
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [pathname, loading]);
   return (
     <>
       <ToastContainer />
-
       <TopNavbar />
       <Navbar />
       <div className="container_fluid">
         <div>
-          <div
-            ref={mapRef}
-            id="map"
-            className="map__Container contact__map__block"
-          ></div>
+          <img className="page__banner" src={bannerData.banner_image} alt="" />
         </div>
       </div>
 
       <div className="container-fluid">
-        <div className="container contact__page__title__block">
-          <p className="contact__page__title">Wicon Electonics</p>
-          <p className="contact__page__description">
-            Wicon Electronics is an established industrial automation and
-            control system solutions company. we are a professionally managed
-            organization.
+        <div className="container career__page__title__block">
+          <p className="career__page__title">Career</p>
+          <p className="career__page__description">
+            "Choose a job you love,
+            <br /> and you will never have to work a day in your life."
           </p>
         </div>
       </div>
 
       <div className="container-fluid">
         <div className="container contact__address__block">
-          <div className="row inner__contact__address__block">
-            <form
-              onSubmit={handlefix}
-              className="col-md-8 col-sm-12 col-12 contact__form__block"
-            >
-              <div className="inner__contact__form__block">
-                <div className="row form__field__block">
-                  <div className="col-sm-6 col-12 form__field left__form__field">
-                    <input
-                      className="input__field"
-                      type="text"
-                      name="name"
-                      id="name"
-                      placeholder="Your Name"
-                      value={client.name}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="col-sm-6 col-12 form__field right__form__field">
-                    <input
-                      className="input__field"
-                      type="email"
-                      size="30"
-                      name="email"
-                      id="email"
-                      placeholder="Your email address"
-                      value={client.email}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-                <div className="row form__field__block">
-                  <div className="col-sm-6 col-12 form__field left__form__field">
-                    <input
-                      className="input__field"
-                      type="text"
-                      name="subject"
-                      id="subject"
-                      placeholder="Subject"
-                      value={client.subject}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="col-sm-6 col-12 form__field right__form__field">
-                    <input
-                      className="input__field"
-                      type="tel"
-                      maxlength="10"
-                      pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
-                      name="phone_number"
-                      id="phone_number"
-                      placeholder="Phone Number"
-                      value={client.phone_number}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-                <div className="form__field textarea">
-                  <textarea
+          <form onSubmit={handleSubmit} className="contact__form__block">
+            <div className="inner__contact__form__block">
+              <div className="row form__field__block">
+                <div className="col-sm-6 col-12 form__field left__form__field">
+                  <input
                     className="input__field"
-                    name="description"
-                    id="description"
-                    placeholder="Message"
-                    value={client.description}
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="Your Name"
+                    value={candidate.name}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="form__field__button">
+                <div className="col-sm-6 col-12 form__field right__form__field">
                   <input
-                    className={
-                      submitting
-                        ? "submit__button submittting__button"
-                        : "submit__button"
-                    }
-                    type="submit"
-                    value={submitting ? "Submitting" : "Submit"}
+                    className="input__field"
+                    type="email"
+                    size="30"
+                    name="email"
+                    id="email"
+                    placeholder="Email address"
+                    value={candidate.email}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
-            </form>
-
-            <div className="col-md-4 col-sm-12 col-12 contact__page__address__block address__block">
-              <div className="address__title__block">
-                <img src={mapIcon} alt="mapIcon" />
-                <p className="address__title">Wicon Electronics</p>
+              <div className="row form__field__block">
+                <div className="col-sm-6 col-12 form__field left__form__field">
+                  <input
+                    className="input__field"
+                    type="number"
+                    name="experience"
+                    id="experience"
+                    placeholder="Experience"
+                    value={candidate.experience}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="col-sm-6 col-12 form__field right__form__field">
+                  <input
+                    className="input__field"
+                    type="tel"
+                    maxLength="10"
+                    pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+                    name="phone_number"
+                    id="phone_number"
+                    placeholder="Phone number"
+                    value={candidate.phone_number}
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
-              <p className="full__address__text">
-                K-5, Road no. 5, Diamond Industrial Park,
-                <br /> Near Sachin SEZ,
-                <br />
-                Behind Sachin GIDC, Sachin
-                <br /> Surat, Gujarat - 394230
-              </p>
-              <p className="footer__contact__tab">
-                <img
-                  className="footer__tab__icon"
-                  src={mail_filled}
-                  alt="mail"
+              <div className="row form__field__block">
+                <div className="col-sm-6 col-12 form__field left__form__field textarea">
+                  <textarea
+                    className="input__field"
+                    name="self_description"
+                    id="self_description"
+                    placeholder="Tell us a little about yours"
+                    value={candidate.self_description}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="col-sm-6 col-12 form__field right__form__field file__upload__field">
+                  <label className="career__page__label">
+                    Upload your resume / CV
+                  </label>
+                  <input
+                    className=""
+                    type="file"
+                    name="resume"
+                    id="resume"
+                    title=" "
+                    placeholder="Upload CV"
+                    value={candidate.resume}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+
+              <div className="form__field__button">
+                <input
+                  className={
+                    submitting
+                      ? "submit__button submittting__button"
+                      : "submit__button"
+                  }
+                  type="submit"
+                  value={submitting ? "Submitting" : "Submit"}
                 />
-                <a href="mailto:sales1@wicon.in">sales@wicon.in </a>
-              </p>
-              <p className="footer__contact__tab">
-                <img
-                  className="footer__tab__icon"
-                  src={phone_filled}
-                  alt="phone"
-                />
-                <a href="tel:9898603537">+91 9898603537</a>
-              </p>
-              <p className="footer__contact__tab">
-                <img
-                  className="footer__tab__icon"
-                  src={phone_filled}
-                  alt="phone"
-                />
-                <a href="tel:9898379703">+91 9898379703</a>
-              </p>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
 
@@ -267,4 +248,4 @@ function Contact() {
   );
 }
 
-export default Contact;
+export default Career;
